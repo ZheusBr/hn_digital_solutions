@@ -9,6 +9,8 @@ import AboutFounderStory from "pages/about-founder-story";
 import InteractivePortfolioGallery from "pages/interactive-portfolio-gallery";
 import ContactConsultationHub from "pages/contact-consultation-hub";
 import AdminDashboard from "pages/admin-dashboard";
+import Login from "pages/auth/Login";
+import Signup from "pages/auth/Signup";
 import NotFound from "pages/NotFound";
 
 const Routes = () => {
@@ -25,6 +27,8 @@ const Routes = () => {
         <Route path="/interactive-portfolio-gallery" element={<InteractivePortfolioGallery />} />
         <Route path="/contact-consultation-hub" element={<ContactConsultationHub />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/signup" element={<Signup />} />
         <Route path="*" element={<NotFound />} />
       </RouterRoutes>
       </ErrorBoundary>

@@ -14,24 +14,28 @@ const AboutFounderStory = () => {
   }, []);
 
   const handleWhatsAppClick = () => {
-    const message = encodeURIComponent('Olá! Vim através do site e gostaria de conhecer mais sobre os serviços da HN Digital Soluções. Podemos conversar?');
-    const phoneNumber = '5511999999999';
+    const message = encodeURIComponent('Olá! Vim através do site e gostaria de conhecer mais sobre os serviços da HN TI & Soluções. Podemos conversar?');
+    const phoneNumber = '5513978125566';
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+  };
+
+  const handleInstagramClick = () => {
+    window.open('https://www.instagram.com/hn.ti.solucoes?igsh=M244eGhhMW54OXM2', '_blank');
   };
 
   return (
     <>
       <Helmet>
-        <title>Nossa História - Da Mudança de Carreira à Transformação Digital | HN Digital Soluções</title>
+        <title>Nossa História - Da Mudança de Carreira à Transformação Digital | HN TI & SOLUÇÕES</title>
         <meta 
           name="description" 
           content="Conheça a jornada de Henrique Nascimento: da mudança de carreira corporativa ao empreendedorismo digital. Uma história de reinvenção, aprendizado e paixão por transformar pequenos negócios através da tecnologia." 
         />
-        <meta name="keywords" content="história da empresa, fundador, mudança de carreira, empreendedorismo digital, transformação pessoal, HN Digital" />
+        <meta name="keywords" content="história da empresa, fundador, mudança de carreira, empreendedorismo digital, transformação pessoal, HN TI & SOLUÇÕES" />
         <meta property="og:title" content="Nossa História - Da Mudança de Carreira à Transformação Digital" />
         <meta property="og:description" content="Uma jornada de reinvenção pessoal que se tornou a missão de transformar pequenos negócios através da presença digital." />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://hndigitalsolutions.com.br/about-founder-story" />
+        <link rel="canonical" href="https://hntisolucoes.com.br/about-founder-story" />
       </Helmet>
 
       <div className="min-h-screen bg-background">
@@ -59,8 +63,8 @@ const AboutFounderStory = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold">HN Digital</h3>
-                    <p className="text-sm text-gray-400">Soluções</p>
+                    <h3 className="text-xl font-bold">HN TI & SOLUÇÕES</h3>
+                    <p className="text-sm text-gray-400">Transformação Digital</p>
                   </div>
                 </div>
                 <p className="text-gray-300 text-sm leading-relaxed">
@@ -73,8 +77,8 @@ const AboutFounderStory = () => {
               <div className="space-y-4">
                 <h4 className="font-semibold">Contato</h4>
                 <div className="space-y-2 text-sm text-gray-300">
-                  <p>contato@hndigitalsolutions.com.br</p>
-                  <p>(11) 99999-9999</p>
+                  <p>contato@hntisolucoes.com.br</p>
+                  <p>(13) 97812-5566</p>
                   <p>São Paulo, SP</p>
                 </div>
               </div>
@@ -89,7 +93,10 @@ const AboutFounderStory = () => {
                   >
                     <span className="text-white text-lg">💬</span>
                   </button>
-                  <button className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center hover:opacity-90 transition-opacity">
+                  <button 
+                    onClick={handleInstagramClick}
+                    className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center hover:opacity-90 transition-opacity"
+                  >
                     <span className="text-white text-lg">📷</span>
                   </button>
                 </div>
@@ -98,7 +105,7 @@ const AboutFounderStory = () => {
 
             <div className="border-t border-gray-700 mt-8 pt-8 text-center">
               <p className="text-sm text-gray-400">
-                © {new Date().getFullYear()} HN TI & Soluções. Todos os direitos reservados.
+                © {new Date().getFullYear()} HN TI & SOLUÇÕES. Todos os direitos reservados.
               </p>
             </div>
           </div>

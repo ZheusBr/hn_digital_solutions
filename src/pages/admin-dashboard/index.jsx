@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/ui/Header';
 import Icon from '../../components/AppIcon';
 import Button from '../../components/ui/Button';
+import { useAuth } from '../../contexts/AuthContext';
 import DashboardStats from './components/DashboardStats';
 import RecentActivity from './components/RecentActivity';
 import ProjectOverview from './components/ProjectOverview';
@@ -13,6 +15,33 @@ import QuickActions from './components/QuickActions';
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { user, userProfile, signOut, loading } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirect to login if not authenticated (for demo purposes, showing preview)
+  useEffect(() => {
+    // In preview mode, we allow access even without authentication
+    // TODO: Before production deployment
+    // 1. Wrap protected routes with <ProtectedRoute> component
+    // 2. Remove preview mode fallbacks
+    // 3. Test all authentication flows
+    // 4. Verify role-based access controls
+    
+    if (!loading && !user) {
+      // For preview mode, we'll show a preview banner instead of redirecting console.log('Preview Mode: Admin dashboard accessible without authentication');
+    }
+  }, [user, loading, navigate]);
+
+  const handleSignOut = async () => {
+    try {
+      const result = await signOut();
+      if (result?.success) {
+        navigate('/auth/login');
+      }
+    } catch (error) {
+      console.log('Sign out error:', error);
+    }
+  };
 
   const navigationTabs = [
     { id: 'overview', name: 'Visão Geral', icon: 'LayoutDashboard' },
@@ -58,9 +87,34 @@ const AdminDashboard = () => {
     }
   };
 
+  // Preview mode banner for non-authenticated users
+  const PreviewBanner = () => (
+    <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 text-center">
+      <div className="flex items-center justify-center space-x-2">
+        <Icon name="Eye" size={20} />
+        <span className="font-medium">Modo de Visualização</span>
+        <span className="text-blue-100">•</span>
+        <span className="text-sm">
+          Faça login para acessar todas as funcionalidades
+        </span>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => navigate('/auth/login')}
+          className="text-white hover:bg-white/20 ml-2"
+        >
+          Entrar
+        </Button>
+      </div>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      
+      {/* Preview Mode Banner */}
+      {!user && !loading && <PreviewBanner />}
       
       <div className="pt-16">
         <div className="flex">
@@ -77,7 +131,7 @@ const AdminDashboard = () => {
                     </div>
                     <div>
                       <h2 className="text-lg font-semibold text-foreground">Admin Dashboard</h2>
-                      <p className="text-sm text-muted-foreground">HN Digital Soluções</p>
+                      <p className="text-sm text-muted-foreground">HN TI & SOLUÇÕES</p>
                     </div>
                   </div>
                 </div>
@@ -109,13 +163,37 @@ const AdminDashboard = () => {
                         <Icon name="User" size={16} className="text-white" />
                       </div>
                       <div>
-                        <p className="font-medium text-foreground text-sm">Henrique Nascimento</p>
-                        <p className="text-xs text-muted-foreground">Administrador</p>
+                        <p className="font-medium text-foreground text-sm">
+                          {user ? userProfile?.full_name || user.email : 'Visitante'}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {user ? userProfile?.role || 'Usuário' : 'Visualização'}
+                        </p>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm" className="w-full" iconName="LogOut" iconPosition="left">
-                      Sair
-                    </Button>
+                    {user ? (
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="w-full" 
+                        iconName="LogOut" 
+                        iconPosition="left"
+                        onClick={handleSignOut}
+                      >
+                        Sair
+                      </Button>
+                    ) : (
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="w-full" 
+                        iconName="LogIn" 
+                        iconPosition="left"
+                        onClick={() => navigate('/auth/login')}
+                      >
+                        Fazer Login
+                      </Button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -149,7 +227,7 @@ const AdminDashboard = () => {
                       {navigationTabs.find(tab => tab.id === activeTab)?.name || 'Dashboard'}
                     </h1>
                     <p className="text-muted-foreground">
-                      Bem-vindo ao painel administrativo da HN Digital Soluções
+                      {user ? 'Bem-vindo ao painel administrativo da HN TI & SOLUÇÕES' : 'Visualizando painel administrativo em modo de demonstração'}
                     </p>
                   </div>
                 </div>
@@ -165,7 +243,7 @@ const AdminDashboard = () => {
                     size="sm"
                     onClick={() => {
                       const message = encodeURIComponent('Olá! Preciso de suporte técnico no dashboard');
-                      window.open(`https://wa.me/5511999999999?text=${message}`, '_blank');
+                      window.open(`https://wa.me/5513978125566?text=${message}`, '_blank');
                     }}
                     className="bg-whatsapp hover:bg-whatsapp/90 text-whatsapp-foreground"
                     iconName="MessageCircle"
